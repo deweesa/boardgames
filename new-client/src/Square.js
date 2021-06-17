@@ -1,9 +1,11 @@
 import React from 'react';
 import './Square.css';
 
-function Square() {
+function Square(props) {
 	return (
-		<button class="Square"></button>
+		<button className={"square " + props.shade}
+		style={props.style}>
+		</button>
 	);
 }	
 

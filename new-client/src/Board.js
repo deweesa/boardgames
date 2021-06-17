@@ -5,20 +5,22 @@ export default class Board extends React.Component {
 	render() {
 		return(
 			<div>
-				<h1>How this is now the page</h1>
-				<p>wee waa</p>
 				{this.makeBoard()}
-				{Square()}
+				<Square shade="square-light"/>
 			</div>
 		);
 	}
 
 	makeBoard() {
 		var rows = [];
+		var isLight = true
 		for(let i = 0; i < 8; i++) {
 			for(let j = 0; j < 8; j++) {
-				rows.push(Square());
+				let shade = isLight? "square-light" : "square-dark";
+				rows.push(<Square shade={shade}/>);
+				isLight = !isLight;
 			}
+			isLight = !isLight;
 			rows.push(<br></br>)
 		}
 
