@@ -6,9 +6,9 @@ export default class Board extends React.Component {
 		return(
 			<div>
 				{this.makeBoard()}
-				<Square shade="square-light"/>
 			</div>
 		);
+		
 	}
 
 	makeBoard() {
@@ -17,7 +17,7 @@ export default class Board extends React.Component {
 		for(let i = 0; i < 8; i++) {
 			for(let j = 0; j < 8; j++) {
 				let shade = isLight? "square-light" : "square-dark";
-				rows.push(<Square shade={shade}/>);
+				rows.push(<Square shade={shade} id={i+","+j}/>);
 				isLight = !isLight;
 			}
 			isLight = !isLight;
