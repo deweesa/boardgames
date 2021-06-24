@@ -1,7 +1,9 @@
 .square {
-	padding: 30px;
+	height: 30px;
+	width: 30px;
 	border-radius: 0px;
 	border: 0px;
+	margin: 0px;
 }
 
 .square-dark {
@@ -15,6 +17,9 @@
 .square-yellow {
 	background-color: yellow;
 }
+
+
+
 
 
 
