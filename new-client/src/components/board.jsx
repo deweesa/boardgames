@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './board.css';
 import Square from './Square';
-
+import getHighlights from './PieceHandler';
 	//Pawn
 	const WP = '\u2659'
 	const BP = '\u265f'
@@ -145,136 +145,10 @@ export default class Board extends Component {
 
 	highlightSquares = (sourceCoordinates, piece, grid) => {
 			let { whitesTurn } = this.state;
+
 			const { row, col } = sourceCoordinates;
 
-			if(piece.type === WP){
-				if(piece.row === 0) return; //bounds check that we are at the top of the board
-				let coords = {
-					row: sourceCoordinates.row-1,
-					col: sourceCoordinates.col
-				}				
-				grid[coords.row][coords.col].highlighted = true;
-
-			} else if(piece.type === BP) {
-				if(piece.row === 7) return; //bounds check that we are at the bottom of the board
-				let coords = {
-					row: sourceCoordinates.row+1,
-					col: sourceCoordinates.col
-				}
-				grid[coords.row][coords.col].highlighted = true;
-
-			} else if(piece.type === WR || piece.type === BR) {
-				let piece_found;
-
-				//North
-				let n_runner = row - 1;
-				piece_found = false;
-				while(n_runner >= 0 && !piece_found) {
-					if(grid[n_runner][col].piece === EMPTY_SQUARE) {
-						grid[n_runner][col].highlighted = true;
-					} else {
-						piece_found = true;
-
-						let piece = grid[n_runner][col].piece;
-						console.log(piece);
-						if(whitesTurn && piece.color === 'b') {
-							grid[n_runner][col].highlighted = true;
-						} else if(!whitesTurn && piece.color === 'w') {
-							grid[n_runner][col].highlighted = true;
-						}
-					}
-
-					n_runner--;
-				}
-
-				//South 
-				let s_runner = row + 1;
-				piece_found = false;
-				while(s_runner < this.state.rows && !piece_found){
-					if(grid[s_runner][col].piece === EMPTY_SQUARE) {
-						grid[s_runner][col].highlighted = true;
-					} else {
-						console.log('south else check')
-						piece_found = true;
-
-						let piece = grid[s_runner][col].piece;
-						console.log(piece);
-						if(whitesTurn && piece.color === 'b') {
-							grid[s_runner][col].highlighted = true;
-						} else if(!whitesTurn && piece.color === 'w') {
-							grid[s_runner][col].highlighted = true;
-						}
-					}
-
-					s_runner++;
-				}
-
-				//West
-				let w_runner = col - 1;
-				piece_found = false;
-				while(w_runner >= 0 && !piece_found) {
-					if(grid[row][w_runner].piece === EMPTY_SQUARE) {
-						grid[row][w_runner].highlighted = true;
-					} else {
-						console.log('west else check')
-						piece_found = true;
-
-						let piece = grid[row][w_runner].piece;
-						console.log(piece);
-						if(whitesTurn && piece.color === 'b') {
-							grid[row][w_runner].highlighted = true;
-						} else if(!whitesTurn && piece.color === 'w') {
-							grid[row][w_runner].highlighted = true;
-						}
-					}
-
-					w_runner--;
-				}
-
-				//East
-				let e_runner = col + 1;
-				piece_found = false;
-				while(e_runner < this.state.cols && !piece_found){
-					if(grid[row][e_runner].piece === EMPTY_SQUARE) {
-						grid[row][e_runner].highlighted = true;
-					} else {
-						console.log('east else check')
-						console.log(`${row}-${e_runner}`)
-						piece_found = true;
-
-						let piece = grid[row][e_runner].piece;
-						console.log(piece);
-						if(whitesTurn && piece.color === 'b') {
-							console.log('why aint you going')
-							grid[row][e_runner].highlighted = true;
-						} else if(!whitesTurn && piece.color === 'w') {
-							grid[row][e_runner].highlighted = true;
-						}				
-					}
-
-					e_runner++;
-				}
-			} else if(piece.type === WB || piece.type === BB) {
-				let piece_found = false;
-
-				//NW
-				let row_runner = row - 1;
-				let col_runner = col - 1;
-
-				while(row_runner >= 0 && col_runner >= 0 && !piece_found) {
-					if(grid[row_runner][col_runner].piece = EMPTY_SQUARE) {
-						grid[row_runner][col_runner].highlighted = true;
-					} else {
-						piece_found = true;
-						
-						
-					}
-				}
-
-				//NE
-				//SW
-				//SE
-			}
+			grid = getHighlights(grid, sourceCoordinates, whitesTurn)
 
 			return grid 
 			
@@ -308,8 +182,8 @@ export default class Board extends Component {
 			sourceSelected = true;	
 			let sourceCoordinates = {row, col};
 			
-			let newGrid = this.highlightSquares(sourceCoordinates, piece, grid)
-
+			//let newGrid = this.highlightSquares(sourceCoordinates, piece, grid)
+			let newGrid = getHighlights(grid, sourceCoordinates, whitesTurn);
 			this.setState({
 				...this.state,
 				sourceCoordinates,
