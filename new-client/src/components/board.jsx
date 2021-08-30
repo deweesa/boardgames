@@ -266,11 +266,14 @@ export default class Board extends Component {
 						grid[row_runner][col_runner].highlighted = true;
 					} else {
 						piece_found = true;
+						
+						
 					}
 				}
+
 				//NE
 				//SW
-				//SE	
+				//SE
 			}
 
 			return grid 
