@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './board.css';
 import Square from './Square';
 import getHighlights from './PieceHandler';
+import PieceHandler from './PieceHandler';
 	//Pawn
 	const WP = '\u2659'
 	const BP = '\u265f'
@@ -41,6 +42,7 @@ export default class Board extends Component {
 
 	constructor(props) {
 		super(props)
+		this.pieceHandler = new PieceHandler(props.rows, props.cols)
 
 		/* ! Order of board represented is that black pieces are first 
 				 two rows, and white peices are last two rows */
@@ -148,7 +150,7 @@ export default class Board extends Component {
 
 			const { row, col } = sourceCoordinates;
 
-			grid = getHighlights(grid, sourceCoordinates, whitesTurn)
+			grid = this.pieceHandler.getHighlights(grid, sourceCoordinates, whitesTurn)
 
 			return grid 
 			
@@ -183,7 +185,7 @@ export default class Board extends Component {
 			let sourceCoordinates = {row, col};
 			
 			//let newGrid = this.highlightSquares(sourceCoordinates, piece, grid)
-			let newGrid = getHighlights(grid, sourceCoordinates, whitesTurn);
+			let newGrid = this.pieceHandler.getHighlights(grid, sourceCoordinates, whitesTurn);
 			this.setState({
 				...this.state,
 				sourceCoordinates,
