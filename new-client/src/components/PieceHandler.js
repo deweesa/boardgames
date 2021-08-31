@@ -201,7 +201,10 @@ function bishopHandler(grid, pieceType, coords, whitesTurn) {
 }
 
 function rookHandler(grid, pieceType, coords, whitesTurn) {
-	let pieceFound = false;
+	//N
+	//S
+	//E
+	//W
 }
 
 function queenHandler(grid, pieceType, coords, whitesTurn) {
